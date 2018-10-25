@@ -6,14 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 
 import com.starwars.apirest.dominio.Planeta;
 
+@Repository
 public class RepositorioPlanetaCustomizado implements IRepositorioPlanetaCustomizado {
 	
 	@Autowired
 	private MongoTemplate mongoTemplate;
-	
+		
 	@Override
 	public Planeta findUnicoPorNome(String nome) {
 		Criteria criteria = new Criteria("nome").is(nome);
@@ -36,6 +38,5 @@ public class RepositorioPlanetaCustomizado implements IRepositorioPlanetaCustomi
 		Query queryPorNome = new Query(criteria);		
 		List<Planeta> planetas = this.mongoTemplate.find(queryPorNome, Planeta.class);
 		return planetas;
-	}
-		
+	}	
 }
