@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.starwars.apirest.dominio.Planeta;
-import com.starwars.apirest.persistencia.RepositorioSequencia;
 import com.starwars.apirest.persistencia.IRepositorioPlaneta;
 import com.starwars.apirest.persistencia.IRepositorioPlanetaCustomizado;
 import com.starwars.apirest.persistencia.IRepositorioSequencia;
@@ -51,6 +50,8 @@ public class ApirestApplicationTests {
 		if (total > 0L)			
 			repositorio.deleteAll();
 		
+		geradorSequencia.limpar(Planeta.class.getName());
+		
 		for (Planeta p: amostra) {
 			p.setId(this.geradorSequencia.getProximoValorChave(p.getClass().getName()));			
 			this.repositorio.insert(p);
@@ -66,7 +67,10 @@ public class ApirestApplicationTests {
 		assertThat(listaPlanetas).isNotEmpty();
 		
 		listaPlanetas = this.repositorioCustomizado.findAproxPorNome("a");
-		assertThat(listaPlanetas).isNotEmpty();		
+		assertThat(listaPlanetas).isNotEmpty();
+		
+		Planeta p = this.repositorioCustomizado.findPorID(1);
+		assertThat(p).isNotNull();
 	}
 
 }

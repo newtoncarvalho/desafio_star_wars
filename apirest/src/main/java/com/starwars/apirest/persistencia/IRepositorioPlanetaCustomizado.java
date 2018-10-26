@@ -6,6 +6,8 @@ import com.starwars.apirest.dominio.Planeta;
 
 public interface IRepositorioPlanetaCustomizado {
 	Planeta findUnicoPorNome(String nome);
+	
+	Planeta findPorID(long id);
 
 	List<Planeta> findPorNome(String nome);
 
