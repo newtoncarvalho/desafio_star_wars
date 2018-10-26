@@ -69,8 +69,13 @@ public class ApirestApplicationTests {
 		listaPlanetas = this.repositorioCustomizado.findAproxPorNome("a");
 		assertThat(listaPlanetas).isNotEmpty();
 		
-		Planeta p = this.repositorioCustomizado.findPorID(1);
+		Planeta p = this.repositorioCustomizado.findPorID(4);
 		assertThat(p).isNotNull();
+		System.out.println(p);
+		
+		p = this.repositorioCustomizado.findPorID(10000);
+		assertThat(p).isNull();
+		System.out.println(p);
 	}
 
 }

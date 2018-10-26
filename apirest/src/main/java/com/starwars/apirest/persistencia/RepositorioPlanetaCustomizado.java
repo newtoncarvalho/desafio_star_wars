@@ -42,9 +42,9 @@ public class RepositorioPlanetaCustomizado implements IRepositorioPlanetaCustomi
 
 	@Override
 	public Planeta findPorID(long id) {
-		Criteria criteria = new Criteria("od").is(id);
-		Query queryPorNome = new Query(criteria);		
-		Planeta planeta = this.mongoTemplate.findOne(queryPorNome, Planeta.class);		
+		Criteria criteria = new Criteria("id").is(id);
+		Query queryPorId = new Query(criteria);		
+		Planeta planeta = this.mongoTemplate.findOne(queryPorId, Planeta.class);		
 		return planeta;
 	}	
 }
