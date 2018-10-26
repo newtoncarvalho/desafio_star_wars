@@ -14,7 +14,7 @@ import com.mongodb.client.result.DeleteResult;
 import com.starwars.apirest.dominio.Planeta;
 
 @Repository
-public class RepositorioPlanetaCustomizado implements IRepositorioPlanetaCustomizado {
+public class RepositorioPlaneta implements IRepositorioPlaneta {
 	
 	@Autowired
 	private MongoTemplate mongoTemplate;
@@ -26,7 +26,7 @@ public class RepositorioPlanetaCustomizado implements IRepositorioPlanetaCustomi
 	
 	private Collation casoInsensitivo = null;
 	
-	public RepositorioPlanetaCustomizado() {
+	public RepositorioPlaneta() {
 		Document anotacao = Planeta.class.getAnnotation(Document.class);
 		if (anotacao == null)
 			throw new IllegalStateException("Classe '" + Planeta.class.getName() + "' nao rotulada com anotacao '" + Document.class.getName() + "'");
@@ -74,6 +74,13 @@ public class RepositorioPlanetaCustomizado implements IRepositorioPlanetaCustomi
 		Query queryPorId = new Query(criteria);		
 		Planeta planeta = this.mongoTemplate.findOne(queryPorId, Planeta.class);		
 		return planeta;
+	}
+	
+	@Override
+	public List<Planeta> listTodos() {
+		Query query = new Query();
+		List<Planeta> planetas = this.mongoTemplate.find(query, Planeta.class);
+		return planetas;
 	}
 	
 	@Override

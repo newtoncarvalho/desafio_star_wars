@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.starwars.apirest.dominio.Planeta;
-import com.starwars.apirest.persistencia.IRepositorioPlanetaCustomizado;
+import com.starwars.apirest.persistencia.IRepositorioPlaneta;
 
 @Service
 public class GerenciadorPlanetas {
 	
 //	@Autowired
-//	private IRepositorioPlanetaCustomizado repositorioPlanetas;
+//	private IRepositorioPlaneta repositorioPlanetas;
 //	
 //	public List<Planeta> getTodosPlanetas() {
 //		List<Planeta> planetas = this.repositorioPlanetas.findAll();
@@ -20,11 +20,11 @@ public class GerenciadorPlanetas {
 //	}
 //	
 //	
-//	public IRepositorioPlanetaCustomizado getRepositorioPlanetas() {
+//	public IRepositorioPlaneta getRepositorioPlanetas() {
 //		return repositorioPlanetas;
 //	}
 //	
-//	public void setRepositorioPlanetas(IRepositorioPlanetaCustomizado repositorioPlanetas) {
+//	public void setRepositorioPlanetas(IRepositorioPlaneta repositorioPlanetas) {
 //		this.repositorioPlanetas = repositorioPlanetas;
 //	}
 //	

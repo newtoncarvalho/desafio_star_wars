@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mongodb.client.result.DeleteResult;
 import com.starwars.apirest.dominio.Planeta;
-import com.starwars.apirest.persistencia.IRepositorioPlanetaCustomizado;
+import com.starwars.apirest.persistencia.IRepositorioPlaneta;
 import com.starwars.apirest.persistencia.IRepositorioSequencia;
 
 @RunWith(SpringRunner.class)
@@ -33,7 +33,7 @@ public class ApirestApplicationTests {
 	};
 	
 	@Autowired
-	private IRepositorioPlanetaCustomizado repositorioCustomizado;
+	private IRepositorioPlaneta repositorioCustomizado;
 
 	@Autowired
 	private IRepositorioSequencia geradorSequencia;
@@ -102,7 +102,11 @@ public class ApirestApplicationTests {
 		}
 		catch (Exception exception) {
 			e = exception;
-		}assertThat(e).isNotNull().isInstanceOf(DuplicateKeyException.class);
+		}
+		assertThat(e).isNotNull().isInstanceOf(DuplicateKeyException.class);
+		
+		List<Planeta> todos = this.repositorioCustomizado.listTodos();
+		assertThat(todos).isNotEmpty();
 	}
 
 }
