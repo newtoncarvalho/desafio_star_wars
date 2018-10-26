@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.query.Collation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
@@ -16,11 +18,31 @@ public class RepositorioPlanetaCustomizado implements IRepositorioPlanetaCustomi
 	
 	@Autowired
 	private MongoTemplate mongoTemplate;
+	
+	@Autowired
+	private IRepositorioSequencia repositorioSequencia;
+	
+	private String nomeColecao = null;
+	
+	private Collation casoInsensitivo = null;
+	
+	public RepositorioPlanetaCustomizado() {
+		Document anotacao = Planeta.class.getAnnotation(Document.class);
+		if (anotacao == null)
+			throw new IllegalStateException("Classe '" + Planeta.class.getName() + "' nao rotulada com anotacao '" + Document.class.getName() + "'");
+		this.nomeColecao = anotacao.collection();
+		
+		this.casoInsensitivo = Collation.of("en").strength(Collation.ComparisonLevel.secondary());
+	}
 		
 	@Override
 	public Planeta findUnicoPorNome(String nome) {
 		Criteria criteria = new Criteria("nome").is(nome);
-		Query queryPorNome = new Query(criteria);		
+		Query queryPorNome = new Query(criteria);
+		
+		// Forcando query caso-insensitivo
+		queryPorNome.collation(this.casoInsensitivo);
+		
 		Planeta planeta = this.mongoTemplate.findOne(queryPorNome, Planeta.class);		
 		return planeta;
 	}
@@ -28,15 +50,20 @@ public class RepositorioPlanetaCustomizado implements IRepositorioPlanetaCustomi
 	@Override
 	public List<Planeta> findPorNome(String nome) {
 		Criteria criteria = new Criteria("nome").is(nome);
-		Query queryPorNome = new Query(criteria);		
+		Query queryPorNome = new Query(criteria);
+		
+		// Forcando query caso-insensitivo
+		queryPorNome.collation(this.casoInsensitivo);
+		
 		List<Planeta> planetas = this.mongoTemplate.find(queryPorNome, Planeta.class);
 		return planetas;
 	}
 	
 	@Override
 	public List<Planeta> findAproxPorNome(String nome) {
-		Criteria criteria = new Criteria("nome").regex(nome);
-		Query queryPorNome = new Query(criteria);		
+		Criteria criteria = new Criteria("nome").regex(nome, "i"); // "i": Insensitivo ao caso
+		Query queryPorNome = new Query(criteria);
+				
 		List<Planeta> planetas = this.mongoTemplate.find(queryPorNome, Planeta.class);
 		return planetas;
 	}
@@ -61,5 +88,32 @@ public class RepositorioPlanetaCustomizado implements IRepositorioPlanetaCustomi
 		Criteria criteria = new Criteria("nome").is(nome);
 		Query queryPorId = new Query(criteria);
 		return this.mongoTemplate.remove(queryPorId, Planeta.class);
+	}
+	
+	@Override
+	public void insert(String nome, String clima, String terreno) {
+		Planeta planeta = new Planeta(nome, clima, terreno);		
+		this.persiste(planeta);
+	}
+	
+	@Override
+	public void persiste(Planeta planeta) {
+		if (planeta == null)
+			return;
+		
+		if (planeta.getId() == 0)
+			planeta.setId(this.repositorioSequencia.getProximoValorChave(Planeta.class.getName()));
+		
+		this.mongoTemplate.save(planeta);		
+	}
+	
+	@Override
+	public long count() {
+		return this.mongoTemplate.getCollection(this.nomeColecao).count();		
+	}
+	
+	@Override
+	public DeleteResult removeTodos() {
+		return this.mongoTemplate.remove(new Query(), this.nomeColecao);
 	}
 }

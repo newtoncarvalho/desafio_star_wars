@@ -1,5 +1,7 @@
 package com.starwars.apirest.dominio;
 
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,7 +14,10 @@ public class Planeta {
 	
 	@Indexed(unique = true)
 	private String nome;
+	
+	@NotBlank
 	private String clima;
+	@NotBlank
 	private String terreno;
 	
 	public Planeta(String nome, String clima, String terreno) {

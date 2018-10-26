@@ -17,4 +17,12 @@ public interface IRepositorioPlanetaCustomizado {
 	DeleteResult deletePorID(long id);
 	
 	DeleteResult deletePorNome(String nome);
+
+	void insert(String nome, String clima, String terreno);
+
+	void persiste(Planeta planeta);
+
+	long count();
+
+	DeleteResult removeTodos();
 }
