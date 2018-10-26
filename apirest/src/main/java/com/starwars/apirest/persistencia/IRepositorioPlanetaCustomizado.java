@@ -2,6 +2,7 @@ package com.starwars.apirest.persistencia;
 
 import java.util.List;
 
+import com.mongodb.client.result.DeleteResult;
 import com.starwars.apirest.dominio.Planeta;
 
 public interface IRepositorioPlanetaCustomizado {
@@ -12,4 +13,8 @@ public interface IRepositorioPlanetaCustomizado {
 	List<Planeta> findPorNome(String nome);
 
 	List<Planeta> findAproxPorNome(String nome);
+
+	DeleteResult deletePorID(long id);
+	
+	DeleteResult deletePorNome(String nome);
 }

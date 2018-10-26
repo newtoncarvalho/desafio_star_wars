@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import com.mongodb.client.result.DeleteResult;
 import com.starwars.apirest.dominio.Planeta;
 
 @Repository
@@ -46,5 +47,19 @@ public class RepositorioPlanetaCustomizado implements IRepositorioPlanetaCustomi
 		Query queryPorId = new Query(criteria);		
 		Planeta planeta = this.mongoTemplate.findOne(queryPorId, Planeta.class);		
 		return planeta;
-	}	
+	}
+	
+	@Override
+	public DeleteResult deletePorID(long id) {
+		Criteria criteria = new Criteria("id").is(id);
+		Query queryPorId = new Query(criteria);
+		return this.mongoTemplate.remove(queryPorId, Planeta.class);
+	}
+
+	@Override
+	public DeleteResult deletePorNome(String nome) {
+		Criteria criteria = new Criteria("nome").is(nome);
+		Query queryPorId = new Query(criteria);
+		return this.mongoTemplate.remove(queryPorId, Planeta.class);
+	}
 }

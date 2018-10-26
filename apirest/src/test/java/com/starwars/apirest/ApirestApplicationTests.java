@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.mongodb.client.result.DeleteResult;
 import com.starwars.apirest.dominio.Planeta;
 import com.starwars.apirest.persistencia.IRepositorioPlaneta;
 import com.starwars.apirest.persistencia.IRepositorioPlanetaCustomizado;
@@ -72,6 +73,21 @@ public class ApirestApplicationTests {
 		Planeta p = this.repositorioCustomizado.findPorID(4);
 		assertThat(p).isNotNull();
 		System.out.println(p);
+		
+		DeleteResult result = this.repositorioCustomizado.deletePorID(p.getId());
+		System.out.println(result);
+		
+		result = this.repositorioCustomizado.deletePorNome("marte");
+		assertThat(result.getDeletedCount()).isGreaterThan(0);
+		System.out.println(result);
+		
+		result = this.repositorioCustomizado.deletePorNome("venus");
+		assertThat(result.getDeletedCount()).isGreaterThan(0);
+		System.out.println(result);
+		
+		result = this.repositorioCustomizado.deletePorNome("plutao");
+		assertThat(result.getDeletedCount()).isEqualTo(0);
+		System.out.println(result);
 		
 		p = this.repositorioCustomizado.findPorID(10000);
 		assertThat(p).isNull();
