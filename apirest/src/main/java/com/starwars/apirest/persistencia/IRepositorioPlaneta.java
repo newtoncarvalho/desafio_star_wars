@@ -18,9 +18,9 @@ public interface IRepositorioPlaneta {
 	
 	DeleteResult deletePorNome(String nome);
 
-	void insert(String nome, String clima, String terreno);
+	Planeta insert(String nome, String clima, String terreno);
 
-	void persiste(Planeta planeta);
+	Planeta persiste(Planeta planeta);
 
 	long count();
 

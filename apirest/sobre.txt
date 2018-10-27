@@ -1,0 +1,31 @@
+Este projeto foi desenvolvimento utilizando o Framework Spring Boot,
+pois, além de contar com as features que constituiem o core do String (Injecao de Depedencia, Controle AOP,
+controle declarativo de transações, etc) este permite criar uma aplicação autoexecutável, seguindo o pricipios 
+de "Convention Over Configuratio". 
+
+Filosofia de um Jar auto-executável:
+Em outras palavras, este projeto não depedende um container externo para colocar os endpoint no ar, 
+ela já são automaticamente publicados num container interno (Tomcat Embeded) ao  
+pacot "api-rest.jar"
+
+Execucao:
+
+java -jar path-to-jar
+
+ou
+
+mvn spring-boot:run
+
+Aplicacao recomendada para testes:
+- Postman (Mais rapida e amigavel que SoapUI)
+  
+
+Consultar Todos
+http://localhost:8383/api-rest-starwars/planetas
+http://localhost:8383/api-rest-starwars/planetas/ 
+ 
+Consulta por Nome
+http://localhost:8383/api-rest-starwars/planetas?nome=terra3
+
+Consulta por Id
+http://localhost:8383/api-rest-starwars/planetas/1

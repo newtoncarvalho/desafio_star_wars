@@ -98,20 +98,21 @@ public class RepositorioPlaneta implements IRepositorioPlaneta {
 	}
 	
 	@Override
-	public void insert(String nome, String clima, String terreno) {
+	public Planeta insert(String nome, String clima, String terreno) {
 		Planeta planeta = new Planeta(nome, clima, terreno);		
-		this.persiste(planeta);
+		return this.persiste(planeta);
 	}
 	
 	@Override
-	public void persiste(Planeta planeta) {
+	public Planeta persiste(Planeta planeta) {
 		if (planeta == null)
-			return;
+			throw new IllegalArgumentException("Planeta nao informado");
 		
 		if (planeta.getId() == 0)
 			planeta.setId(this.repositorioSequencia.getProximoValorChave(Planeta.class.getName()));
 		
-		this.mongoTemplate.save(planeta);		
+		this.mongoTemplate.save(planeta);
+		return planeta;		
 	}
 	
 	@Override
