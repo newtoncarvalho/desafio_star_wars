@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.mongodb.client.result.DeleteResult;
 import com.starwars.apirest.dominio.Planeta;
-import com.starwars.apirest.persistencia.IRepositorioPlaneta;
 import com.starwars.apirest.servico.GerenciadorPlanetas;
 import com.starwars.apirest.util.TratamentoErro;
 
