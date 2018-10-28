@@ -146,8 +146,6 @@ public class ApirestApplicationTests {
 		filmes.add("teste-2");
 		p2.setFilmes(filmes);
 		
-//		p2.setFilmes(new String[] {"teste", "teste2", "teste4"});
-		
 		this.repositoPlanetas.persiste(p2);
 	}
 	

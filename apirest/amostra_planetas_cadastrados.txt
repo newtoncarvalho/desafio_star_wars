@@ -1,0 +1,158 @@
+[
+    {
+        "id": 3,
+        "nome": "terra",
+        "clima": "multiclimatico",
+        "terreno": "multirelevo",
+        "filmes": [
+            "teste",
+            "teste-2",
+            "teste-3",
+            "teste-2"
+        ]
+    },
+    {
+        "id": 5,
+        "nome": "terra3",
+        "clima": "multiclimatico",
+        "terreno": "multirelevo",
+        "filmes": []
+    },
+    {
+        "id": 6,
+        "nome": "terra4",
+        "clima": "multiclimatico",
+        "terreno": "multirelevo",
+        "filmes": []
+    },
+    {
+        "id": 7,
+        "nome": "terra5",
+        "clima": "multiclimatico",
+        "terreno": "multirelevo",
+        "filmes": []
+    },
+    {
+        "id": 8,
+        "nome": "terra8",
+        "clima": "multiclimatico",
+        "terreno": "multirelevo",
+        "filmes": []
+    },
+    {
+        "id": 9,
+        "nome": "terra9",
+        "clima": "multiclimatico",
+        "terreno": "multirelevo",
+        "filmes": []
+    },
+    {
+        "id": 10,
+        "nome": null,
+        "clima": null,
+        "terreno": null,
+        "filmes": []
+    },
+    {
+        "id": 12,
+        "nome": "geonosis",
+        "clima": "frio",
+        "terreno": "florestas",
+        "filmes": [
+            "Attack of the Clones"
+        ]
+    },
+    {
+        "id": 13,
+        "nome": "naboo",
+        "clima": "frio",
+        "terreno": "desertico",
+        "filmes": [
+            "Attack of the Clones",
+            "The Phantom Menace",
+            "Revenge of the Sith",
+            "Return of the Jedi"
+        ]
+    },
+    {
+        "id": 14,
+        "nome": "kashyyyk",
+        "clima": "equatorial e desertico",
+        "terreno": "deserto, florestas e montanhas",
+        "filmes": [
+            "Revenge of the Sith"
+        ]
+    },
+    {
+        "id": 15,
+        "nome": "utapau",
+        "clima": "temperado",
+        "terreno": "deserto, florestas e montanhas",
+        "filmes": [
+            "Revenge of the Sith"
+        ]
+    },
+    {
+        "id": 16,
+        "nome": "yavin IV",
+        "clima": "artico",
+        "terreno": "montanhas",
+        "filmes": [
+            "A New Hope"
+        ]
+    },
+    {
+        "id": 17,
+        "nome": "mars",
+        "clima": "frio e seco",
+        "terreno": "montanhas, planicies",
+        "filmes": []
+    },
+    {
+        "id": 18,
+        "nome": "bespin",
+        "clima": "frio e seco",
+        "terreno": "montanhas, planicies",
+        "filmes": [
+            "The Empire Strikes Back"
+        ]
+    },
+    {
+        "id": 19,
+        "nome": "hoth",
+        "clima": "frio e seco",
+        "terreno": "montanhas, planicies",
+        "filmes": [
+            "The Empire Strikes Back"
+        ]
+    },
+    {
+        "id": 20,
+        "nome": "endor",
+        "clima": "frio e seco",
+        "terreno": "montanhas, planicies",
+        "filmes": [
+            "Return of the Jedi"
+        ]
+    },
+    {
+        "id": 21,
+        "nome": "Eriadu",
+        "clima": "frio e seco",
+        "terreno": "montanhas, planicies",
+        "filmes": []
+    },
+    {
+        "id": 22,
+        "nome": "tatooine",
+        "clima": "frio e seco",
+        "terreno": "montanhas, planicies",
+        "filmes": [
+            "Attack of the Clones",
+            "The Phantom Menace",
+            "Revenge of the Sith",
+            "Return of the Jedi",
+            "A New Hope"
+        ]
+    }
+]
