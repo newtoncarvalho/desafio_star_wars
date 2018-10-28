@@ -18,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.mongodb.client.result.DeleteResult;
 import com.starwars.apirest.dominio.Planeta;
 import com.starwars.apirest.persistencia.IRepositorioPlaneta;
+import com.starwars.apirest.servico.GerenciadorPlanetas;
 import com.starwars.apirest.util.TratamentoErro;
 
 @RestController
@@ -25,7 +26,10 @@ import com.starwars.apirest.util.TratamentoErro;
 public class PlanetasRestController {
 	
 	@Autowired
-	private IRepositorioPlaneta repositorioPlaneta;
+	private GerenciadorPlanetas gerenciadorPlanetas;
+	
+//	@Autowired
+//	private IRepositorioPlaneta repositorioPlaneta;
 	
 //	@RequestMapping(value = "/", method = RequestMethod.GET)
 //	public ResponseEntity<List<Planeta>> listarTodosPlanetas() {
@@ -42,14 +46,10 @@ public class PlanetasRestController {
 	@RequestMapping(value = "/planetas", method = RequestMethod.GET)
 	public ResponseEntity<List<Planeta>> listarPlanetasPorNome(@RequestParam(name="nome", required=false) String nomePlaneta) {
 		
-		// Se parametro "nome" nao informado na uri (/planetas?nome=xpto), lista todos os planetas
-		boolean paramNomePlanetaInformado = !StringUtils.isEmpty(nomePlaneta); 
-		
-		List<Planeta> planetas = paramNomePlanetaInformado ? this.repositorioPlaneta.findAproxPorNome(nomePlaneta) :
-				this.repositorioPlaneta.listTodos();
+		List<Planeta> planetas = this.gerenciadorPlanetas.buscaPlanetasPorNome(nomePlaneta);
 		
 		if (planetas.isEmpty()) {
-			String msg = paramNomePlanetaInformado ? 
+			String msg = !StringUtils.isEmpty(nomePlaneta) ? 
 					"Nenhum planeta encontrado para o nome [" + nomePlaneta +  "]" :
 					"Nenhum planeta cadastrado";
 			TratamentoErro tratamentoErro = new TratamentoErro();
@@ -62,7 +62,7 @@ public class PlanetasRestController {
 	
 	@RequestMapping(value = "/planetas/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getPlanetaPorId(@PathVariable("id") long id) {
-		Planeta p = repositorioPlaneta.findPorID(id);	
+		Planeta p = gerenciadorPlanetas.buscaPlanetaPorId(id);	
 		
 		if (p == null) {
 			String msg = "Nenhum planeta encontrado para o id [" + id +  "]";
@@ -77,7 +77,7 @@ public class PlanetasRestController {
 	@RequestMapping(value="/planetas", method = RequestMethod.POST)
 	public ResponseEntity<?> inserirPlaneta(@RequestBody Planeta planeta, UriComponentsBuilder ucBuilder) {
 		
-		Planeta p = this.repositorioPlaneta.findUnicoPorNome(planeta.getNome());
+		Planeta p = this.gerenciadorPlanetas.buscaPlanetaPorNome(planeta.getNome());
 		if (p != null) {
 			String msg = "Ja existe planeta com o nome [" + planeta.getNome() +  "]";
 			TratamentoErro tratamentoErro = new TratamentoErro();
@@ -85,7 +85,7 @@ public class PlanetasRestController {
 			return new ResponseEntity<>(tratamentoErro, HttpStatus.CONFLICT);
 		}
 		
-		this.repositorioPlaneta.persiste(planeta);
+		this.gerenciadorPlanetas.persiste(planeta);
 		
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setLocation(ucBuilder.path("/api-rest-starwars/planetas/{id}").buildAndExpand(planeta.getId()).toUri());
@@ -95,8 +95,8 @@ public class PlanetasRestController {
 	@RequestMapping(value="/planetas/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deletarPlaneta(@PathVariable long id) {
 		
-		DeleteResult deleteResult = repositorioPlaneta.deletePorID(id);
-		if (deleteResult.getDeletedCount() == 0L) {
+		long totalRemovidos = this.gerenciadorPlanetas.deletePorId(id);
+		if (totalRemovidos == 0L) {
 			String msg = "Nenhum planeta encontrado para o id [" + id +  "]";
 			TratamentoErro tratamentoErro = new TratamentoErro();
 			tratamentoErro.setMensagemErro(msg);

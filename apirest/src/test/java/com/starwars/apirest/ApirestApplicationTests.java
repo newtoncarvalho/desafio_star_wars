@@ -2,6 +2,7 @@ package com.starwars.apirest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -20,6 +21,34 @@ import com.starwars.apirest.persistencia.IRepositorioSequencia;
 @SpringBootTest
 public class ApirestApplicationTests {
 	
+	/**
+	 * Yavin IV
+	 * Hoth
+	 * Dagobah
+	 * Bespin
+	 * Endor
+	 * Naboo
+	 * Kamino
+	 * Geonosis
+	 * Utapau
+	 * Kashyyyk
+	 */
+	
+	String[] nomesPlanetasDoFilme = {
+			"terra",
+			"yavin IV",
+			"hoth",
+			"dagobah",
+			"bespin",
+			"endor",
+			"naboo",
+			"kamino",
+			"geonosis",
+			"utapau",
+			"kashyyyk",	
+			"mars"
+	};
+	
 	Planeta[] amostra = new Planeta[] {
 		new Planeta("venus", "quente", "arenoso"),
 		new Planeta("marte", "frio", "rochoso"),
@@ -33,14 +62,14 @@ public class ApirestApplicationTests {
 	};
 	
 	@Autowired
-	private IRepositorioPlaneta repositorioCustomizado;
+	private IRepositorioPlaneta repositoPlanetas;
 
 	@Autowired
 	private IRepositorioSequencia geradorSequencia;
 	
 	@Test
 	public void contextLoads() {
-		assertThat(repositorioCustomizado).isNotNull();
+		assertThat(repositoPlanetas).isNotNull();
 	}
 	
 	@Test
@@ -48,65 +77,79 @@ public class ApirestApplicationTests {
 		
 		this.geradorSequencia.limpar(Planeta.class.getName());
 		
-		long total = this.repositorioCustomizado.count();
+		long total = this.repositoPlanetas.count();
 		
 		if (total > 0L)			
-			repositorioCustomizado.removeTodos();
+			repositoPlanetas.removeTodos();
 		
 		for (Planeta p: amostra) {
-			this.repositorioCustomizado.persiste(p);
+			this.repositoPlanetas.persiste(p);
 		}
 		
-		Planeta pTerra = this.repositorioCustomizado.findUnicoPorNome("TERRA");
+		Planeta pTerra = this.repositoPlanetas.findUnicoPorNome("TERRA");
 		assertThat(pTerra).isNotNull();
 		
-		List<Planeta> listaPlanetas = this.repositorioCustomizado.findPorNome("TerrA");
+		List<Planeta> listaPlanetas = this.repositoPlanetas.findPorNome("TerrA");
 		assertThat(listaPlanetas).isNotEmpty();
 		
-		listaPlanetas = this.repositorioCustomizado.findAproxPorNome("tERRa");
+		listaPlanetas = this.repositoPlanetas.findAproxPorNome("tERRa");
 		assertThat(listaPlanetas).isNotEmpty();
 		
-		listaPlanetas = this.repositorioCustomizado.findAproxPorNome("RR");
+		listaPlanetas = this.repositoPlanetas.findAproxPorNome("RR");
 		assertThat(listaPlanetas).isNotEmpty();
 		
-		Planeta p = this.repositorioCustomizado.findPorID(4);
+		Planeta p = this.repositoPlanetas.findPorID(4);
 		assertThat(p).isNotNull();
 		System.out.println(p);
 		
-		DeleteResult result = this.repositorioCustomizado.deletePorID(p.getId());
+		DeleteResult result = this.repositoPlanetas.deletePorID(p.getId());
 		System.out.println(result);
 		
-		result = this.repositorioCustomizado.deletePorNome("marte");
+		result = this.repositoPlanetas.deletePorNome("marte");
 		assertThat(result.getDeletedCount()).isGreaterThan(0);
 		System.out.println(result);
 		
-		result = this.repositorioCustomizado.deletePorNome("venus");
+		result = this.repositoPlanetas.deletePorNome("venus");
 		assertThat(result.getDeletedCount()).isGreaterThan(0);
 		System.out.println(result);
 		
-		result = this.repositorioCustomizado.deletePorNome("plutao");
+		result = this.repositoPlanetas.deletePorNome("plutao");
 		assertThat(result.getDeletedCount()).isEqualTo(0);
 		System.out.println(result);
 		
-		p = this.repositorioCustomizado.findPorID(10000);
+		p = this.repositoPlanetas.findPorID(10000);
 		assertThat(p).isNull();
 		System.out.println(p);
 		
 		p = new Planeta(null, null, null);
-		this.repositorioCustomizado.persiste(p);
+		this.repositoPlanetas.persiste(p);
 		
 		Exception e = null;
 		try {
 			p = new Planeta(null, null, null);
-			this.repositorioCustomizado.persiste(p);
+			this.repositoPlanetas.persiste(p);
 		}
 		catch (Exception exception) {
 			e = exception;
 		}
 		assertThat(e).isNotNull().isInstanceOf(DuplicateKeyException.class);
 		
-		List<Planeta> todos = this.repositorioCustomizado.listTodos();
+		List<Planeta> todos = this.repositoPlanetas.listTodos();
 		assertThat(todos).isNotEmpty();
+		
+		
+		Planeta p2 = this.repositoPlanetas.findPorID(3);
+		List<String> filmes = new ArrayList<>();
+		filmes.add("teste");
+		filmes.add("teste-2");
+		filmes.add("teste-3");
+		filmes.add("teste-2");
+		p2.setFilmes(filmes);
+		
+//		p2.setFilmes(new String[] {"teste", "teste2", "teste4"});
+		
+		this.repositoPlanetas.persiste(p2);
 	}
+	
 
 }

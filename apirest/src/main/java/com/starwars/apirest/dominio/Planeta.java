@@ -1,5 +1,11 @@
 package com.starwars.apirest.dominio;
 
+import java.util.ArrayList;
+import java.util.List;
+
+//import java.util.ArrayList;
+//import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.annotation.Id;
@@ -19,6 +25,9 @@ public class Planeta {
 	private String clima;
 	@NotBlank
 	private String terreno;
+	
+	private List<String> filmes = new ArrayList<>();
+//	private String[] filmes = {};
 	
 	public Planeta(String nome, String clima, String terreno) {
 		this.nome = nome;
@@ -50,6 +59,21 @@ public class Planeta {
 	public void setId(long id) {
 		this.id = id;
 	}
+	public List<String> getFilmes() {
+		return filmes;
+	}
+	public void setFilmes(List<String> aparicao) {
+		this.filmes = aparicao;
+	}
+	
+//	public String[] getFilmes() {
+//		return filmes;
+//	}
+//	public void setFilmes(String[] filmes) {
+//		this.filmes = filmes;
+//	}
+	
+	
 	
 	@Override
 	public String toString() {
