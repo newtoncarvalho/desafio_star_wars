@@ -1,4 +1,3 @@
-
 #Projeto: apirest
 
 Aplicação de exemplo que fornce uma API Rest para realizar operações de CRUD na Entidade de  **Planeta** (Inspirada na saga Star Wars)
