@@ -1,0 +1,9 @@
+{"_id":{"$numberLong":"5"},"nome":"terra3","clima":"multiclimatico","terreno":"multirelevo","filmes":[],"_class":"com.starwars.apirest.dominio.Planeta"}
+{"_id":{"$numberLong":"6"},"nome":"terra4","clima":"multiclimatico","terreno":"multirelevo","filmes":[],"_class":"com.starwars.apirest.dominio.Planeta"}
+{"_id":{"$numberLong":"7"},"nome":"terra5","clima":"multiclimatico","terreno":"multirelevo","filmes":[],"_class":"com.starwars.apirest.dominio.Planeta"}
+{"_id":{"$numberLong":"8"},"nome":"terra8","clima":"multiclimatico","terreno":"multirelevo","filmes":[],"_class":"com.starwars.apirest.dominio.Planeta"}
+{"_id":{"$numberLong":"9"},"nome":"terra9","clima":"multiclimatico","terreno":"multirelevo","filmes":[],"_class":"com.starwars.apirest.dominio.Planeta"}
+{"_id":{"$numberLong":"12"},"nome":"tatooine","clima":"frio e seco","terreno":"montanhas, planicies","filmes":["Attack of the Clones","The Phantom Menace","Revenge of the Sith","Return of the Jedi","A New Hope"],"_class":"com.starwars.apirest.dominio.Planeta"}
+{"_id":{"$numberLong":"13"},"nome":"karmino","clima":"frio e seco","terreno":"montanhas, planicies","filmes":[],"_class":"com.starwars.apirest.dominio.Planeta"}
+{"_id":{"$numberLong":"14"},"nome":"kamino","clima":"frio e seco","terreno":"montanhas, planicies","filmes":["Attack of the Clones"],"_class":"com.starwars.apirest.dominio.Planeta"}
+{"_id":{"$numberLong":"15"},"nome":"kashyyyk","clima":"frio e seco","terreno":"montanhas, planicies","filmes":["Revenge of the Sith"],"_class":"com.starwars.apirest.dominio.Planeta"}

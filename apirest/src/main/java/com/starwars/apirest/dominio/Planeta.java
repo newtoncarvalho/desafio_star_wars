@@ -3,11 +3,6 @@ package com.starwars.apirest.dominio;
 import java.util.ArrayList;
 import java.util.List;
 
-//import java.util.ArrayList;
-//import java.util.List;
-
-import javax.validation.constraints.NotBlank;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -21,9 +16,7 @@ public class Planeta {
 	@Indexed(unique = true)
 	private String nome;
 	
-	@NotBlank
 	private String clima;
-	@NotBlank
 	private String terreno;
 	
 	private List<String> filmes = new ArrayList<>();
